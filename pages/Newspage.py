@@ -18,4 +18,4 @@ class NewsPage:
         #self.driver.find_element(By.XPATH, "//input[@name='un']").send_keys("Rainingss1")
         self.driver.find_element(By.XPATH, "//input[@type='text']").send_keys("Rainingss1")
     def newssearch(self,driver):
-        self.driver.find_element(By.XPATH, "// button[ @ name = 'Search']").click()
+        self.driver.find_element(By.XPATH, "// button[ @ name = 'Search1']").click()

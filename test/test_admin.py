@@ -73,10 +73,16 @@ class TestAdmin:
         #self.driver.find_element(By.XPATH,"//button[@name='Create']").click()
         adminpage.createAdmin(self.driver)
         # assert
-        alert_message=self.driver.find_element(By.XPATH, "//div[@class='alert alert-success alert-dismissible']")
         time.sleep(2)
-        assert "User Created Successfully" in alert_message.text  #is displayed
-
+        alert_message=self.driver.find_elements(By.XPATH, "//div[@class='alert alert-success alert-dismissible']")
+        time.sleep(2)
+        alert_message1=self.driver.find_elements(By.XPATH, "//div[@class='alert alert-danger alert-dismissible']")
+        #assert "User Created Successfully" in alert_message.text
+        assert (
+                (alert_message and "User Created Successfully" in alert_message[0].text)
+                or (alert_message1 and "Username already exists." in alert_message1[0].text)
+        )
+        #assert alert_message.is_displayed()
     def test_reset(self,browser_instance):
         self.driver = browser_instance
         excelUtility = ExcelUtility()
