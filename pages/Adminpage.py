@@ -17,9 +17,9 @@ class Adminpage:
         def newbutton(self,driver):
             self.driver.find_element(By.XPATH,"//a[@onclick='click_button(1)']").click()
         def inputusername(self,text):
-            self.driver.find_element(By.XPATH, "//input[@id = 'username']").send_keys("Jollyjkj22")
+            self.driver.find_element(By.XPATH, "//input[@id = 'username']").send_keys("Jollyjkj23")
         def inputpassword(self,text):
-            self.driver.find_element(By.XPATH, "//input[@id = 'password']").send_keys("Jollyjkj22")
+            self.driver.find_element(By.XPATH, "//input[@id = 'password']").send_keys("Jollyjkj23")
         def dropdown(self,driver):
             dropdownlist = self.driver.find_element(By.XPATH, "//select[@id='user_type']")
             select = Select(dropdownlist)
