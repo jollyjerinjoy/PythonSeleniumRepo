@@ -16,6 +16,7 @@ class Testloginclass:
         usernamevalue2=excelUtility.read_user_data(2,1)
         passwordvalue2 = excelUtility.read_user_data(2, 2)
         self.driver.get("https://groceryapp.uniqassosiates.com/admin/login")
+        self.driver.implicitly_wait(5) #impicit wait
 
 
         #invoke

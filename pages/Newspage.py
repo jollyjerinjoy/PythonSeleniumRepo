@@ -1,9 +1,12 @@
 from selenium.webdriver.common.by import By
 
+from utility.WaitUtility import WaitUtility
+
 
 class NewsPage:
     def __init__(self,driver):
         self.driver = driver
+        self.waitutility = WaitUtility()
     def newslist(self,driver):
         self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news']").click()
     def newsnewbutton(self,driver):
@@ -18,4 +21,6 @@ class NewsPage:
         #self.driver.find_element(By.XPATH, "//input[@name='un']").send_keys("Rainingss1")
         self.driver.find_element(By.XPATH, "//input[@type='text']").send_keys("Rainingss1")
     def newssearch(self,driver):
-        self.driver.find_element(By.XPATH, "// button[ @ name = 'Search1']").click()
+        newssearchclick=self.driver.find_element(By.XPATH, "// button[ @ name = 'Search1']")
+        self.waitutility.wait_until_clickable1(self.driver, newssearchclick)
+        newssearchclick.click()
