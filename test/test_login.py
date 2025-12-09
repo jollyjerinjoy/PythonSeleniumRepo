@@ -13,13 +13,17 @@ def generate_random_username():
     return "user_" + ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
 
 class Testloginclass:
-    @pytest.mark.run(order=1)
+    @pytest.mark.run(order=1)  #order
+    @pytest.mark.smoke  #chaining   pytest -m smoke to execute this case
+    #@pytest.mark.regression #chaining   pytest -m regression to execute this case
+    #@pytest.mark.sanity #chaining   pytest -m sanity to execute this case
     def test_loginwithvalidcredentails(self,browser_instance):
         # assigned to variable(driver) which hold instance of driver in browser_instance( created in conftest)
         time.sleep(2)
         self.driver=browser_instance
         excelUtility = ExcelUtility()
-        usernamevalue2=excelUtility.read_user_data(2,1)
+        #usernamevalue2=excelUtility.read_user_data(2,1)  to check flaky test , commenting
+        usernamevalue2 = excelUtility.read_user_data(2, 1)
         passwordvalue2 = excelUtility.read_user_data(2, 2)
         self.driver.get("https://groceryapp.uniqassosiates.com/admin/login")
         self.driver.implicitly_wait(5) #impicit wait
@@ -37,8 +41,8 @@ class Testloginclass:
         nav=self.driver.current_url
         assert nav == "https://groceryapp.uniqassosiates.com/admin"
 
-
-    @pytest.mark.parametrize("username_value", [generate_random_username()])
+    @pytest.mark.parametrize("username_value", ["abc","sd","dd"])
+    #@pytest.mark.parametrize("username_value", [generate_random_username()])
     #@pytest.mark.parametrize("username_column, password_column", [(3, 1), (1, 1)])
     @pytest.mark.run(order=4)
     def test_logininvalidpassword(self,browser_instance,username_value):
