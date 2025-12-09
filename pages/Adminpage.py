@@ -1,42 +1,75 @@
+import random
+import string
+
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.devtools.v140.target import send_message_to_target
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 from utility.WaitUtility import WaitUtility
+from utility.page_utility import Page_Utility
 
+def generate_random_username():
+    return "user_" + ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
 
 class Adminpage:
         def __init__(self, driver):  # invoke driver
             self.driver = driver
             self.waitutility = WaitUtility()
-
+            self.pageutility = Page_Utility()
         def list_admin(self,driver):
-            self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']").click()
+            pageutility_list_admin=self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']")   #.click()
+            self.pageutility.click_on_element(pageutility_list_admin)
+
         def home(self,driver):
-            self.driver.find_element(By.XPATH,"//a[text()='Home']").click()
+            pageutility_home=self.driver.find_element(By.XPATH,"//a[text()='Home']")   #.click()
+            self.pageutility.click_on_element(pageutility_home)
+
         def newbutton(self,driver):
-            self.driver.find_element(By.XPATH,"//a[@onclick='click_button(1)']").click()
+            #self.driver.find_element(By.XPATH,"//a[@onclick='click_button(1)']").click()
+            pageutility_newbutton=self.driver.find_element(By.XPATH,"//a[@onclick='click_button(1)']")
+            self.pageutility.click_on_element(pageutility_newbutton)
+
         def inputusername(self,text):
-            self.driver.find_element(By.XPATH, "//input[@id = 'username']").send_keys("Jollyjkj23")
+            #self.driver.find_element(By.XPATH, "//input[@id = 'username']").send_keys("Jollyjkj23")
+            pageutilty_inputusername=self.driver.find_element(By.XPATH, "//input[@id = 'username']")
+            self.pageutility.send_data_to_element(pageutilty_inputusername,generate_random_username())
+
         def inputpassword(self,text):
-            self.driver.find_element(By.XPATH, "//input[@id = 'password']").send_keys("Jollyjkj23")
+            pageutilty_inputpassword=self.driver.find_element(By.XPATH, "//input[@id = 'password']")  #.send_keys("Jollyjkj23")
+            self.pageutility.send_data_to_element(pageutilty_inputpassword,"Jollyjkj27")
+
         def dropdown(self,driver):
-            dropdownlist = self.driver.find_element(By.XPATH, "//select[@id='user_type']")
-            select = Select(dropdownlist)
-            select.select_by_visible_text("Staff")
+            pageutilty_dropdownlist = self.driver.find_element(By.XPATH, "//select[@id='user_type']")
+            #select = Select(pageutilty_dropdownlist)
+            #select.select_by_visible_text("Staff")
+            self.pageutility.select_by_visible_text(pageutilty_dropdownlist,"Staff")
+
         def createAdmin(self, driver):
-            self.driver.find_element(By.XPATH,"//button[@name='Create']").click()
+            pageutilty_createAdmin=self.driver.find_element(By.XPATH,"//button[@name='Create']")  #.click()
+            self.pageutility.click_on_element(pageutilty_createAdmin)
         def resetAdmin(self,driver):
-            self.driver.find_element(By.XPATH, "//a[text() = ' Reset']").click()
+            pageutilty_resetAdmin=self.driver.find_element(By.XPATH, "//a[text() = ' Reset']")   #.click()
+            self.pageutility.click_on_element(pageutilty_resetAdmin)
         def searchAdmin(self, driver):
-            self.driver.find_element(By.XPATH, "//a[text() = ' Search']").click()
+            pageutilty_searchAdmin=self.driver.find_element(By.XPATH, "//a[text() = ' Search']")   #.click()
+            self.pageutility.click_on_element(pageutilty_searchAdmin)
+
         def inputtext(self,text):
-            self.driver.find_element(By.XPATH, "//input[@type = 'text']").send_keys("Jolly")
+            #self.driver.find_element(By.XPATH, "//input[@type = 'text']").send_keys("Jolly")
+            pageutility_inputtext=self.driver.find_element(By.XPATH, "//input[@type = 'text']")
+            self.pageutility.send_data_to_element(pageutility_inputtext,"jolly")
         def utdropdownlist(self,driver):
-            search_dropdown_list = self.driver.find_element(By.XPATH, "//select[@id='ut']")
-            select = Select(search_dropdown_list)
-            select.select_by_visible_text("Staff")
+            #search_dropdown_list = self.driver.find_element(By.XPATH, "//select[@id='ut']")
+            #select = Select(search_dropdown_list)
+            #select.select_by_visible_text("Staff")
+            pageutility_utdropdownlist=self.driver.find_element(By.XPATH, "//select[@id='ut']")
+            #select = Select(pageutility_utdropdownlist)
+            self.pageutility.select_by_visible_text(pageutility_utdropdownlist,"Staff")
         def search(self,driver):
-            searchclick=self.driver.find_element(By.XPATH, "//button[@type= 'submit' and @value='sr' and @name='Search']")
-            self.waitutility.wait_until_clickable(self.driver, searchclick)
-            searchclick.click()
+            #searchclick=self.driver.find_element(By.XPATH, "//button[@type= 'submit' and @value='sr' and @name='Search']")
+            #self.waitutility.wait_until_clickable(self.driver, searchclick)
+            #searchclick.click()
+            pageutility_searchclick=self.driver.find_element(By.XPATH, "//button[@type= 'submit' and @value='sr' and @name='Search']")
+            self.waitutility.wait_until_clickable(self.driver, pageutility_searchclick)
+            self.pageutility.click_on_element(pageutility_searchclick)

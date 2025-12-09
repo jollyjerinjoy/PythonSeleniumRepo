@@ -8,7 +8,6 @@ class Loginpage:
     def __init__(self,driver):
         self.driver=driver
         self.waitutility = WaitUtility()
-
         self.pageutility=Page_Utility()  #pageutiliycode
     def enter_username(self,usernamevalue2):
         utilityusername=(self.driver.find_element(By.XPATH,"//input[@name='username']"))
@@ -21,9 +20,9 @@ class Loginpage:
         self.pageutility.send_data_to_element(utilitypassword,passwordvalue2)  #pageutiliycode
 
     def signin(self,driver):
-        signin=self.driver.find_element(By.XPATH, "//button[@type='submit']")
-        self.waitutility.wait_until_clickable(self.driver,signin)
-        self.pageutility.click_on_element(signin) #pageutiliycode
+        utilitysignin=self.driver.find_element(By.XPATH, "//button[@type='submit']")
+        self.waitutility.wait_until_clickable(self.driver,utilitysignin)
+        self.pageutility.click_on_element(utilitysignin) #pageutiliycode
         #signin.click()
 
 

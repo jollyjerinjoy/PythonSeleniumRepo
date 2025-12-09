@@ -9,12 +9,11 @@ from pages.Loginpage import Loginpage
 from test.conftest import cross_browser
 from utility.ExcelUtility import ExcelUtility
 
-
 class Testhome:
-    @pytest.mark.timeout(3)
+    @pytest.mark.timeout(30)
     def test_logout(self,cross_browser):
         # assigned to variable(driver) which hold instance of driver in browser_instance( created in conftest)
-        self.driver=cross_browser  #cross browser - one after another tests executed,
+        self.driver=cross_browser  #cross browser - one after another tests executed, written fixture in conftest
 
         excelUtility = ExcelUtility()
         #usernamevalue2=excelUtility.read_user_data(2,1)

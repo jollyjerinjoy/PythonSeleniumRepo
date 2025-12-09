@@ -29,3 +29,7 @@ class Page_Utility:
     def select_data_with_value(self, element, value):
         select = Select(element)
         select.select_by_value(value)
+
+    def select_by_visible_text(self, element, text):
+        select = Select(element)
+        select.select_by_visible_text(text)
