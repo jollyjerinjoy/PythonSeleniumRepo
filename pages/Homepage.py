@@ -1,11 +1,8 @@
 from selenium.webdriver.common.by import By
-
 from utility.WaitUtility import WaitUtility
-
-
 class Homepage:
     def __init__(self,driver):   #invoke driver
-        self.driver = driver     #assigning to class object, fectching driver value and assigining the self.driver object
+        self.driver = driver  #assigning to class object, fectching driver value and assigining the self.driver object
         self.waitutility = WaitUtility()
     def signin(self,driver):
         self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']").click()

@@ -1,4 +1,6 @@
+import string
 import time
+import random
 
 import pytest
 from selenium.webdriver.common.by import By
@@ -7,10 +9,14 @@ from pages.Loginpage import Loginpage
 from utility.ExcelUtility import ExcelUtility
 
 
+def generate_random_username():
+    return "user_" + ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+
 class Testloginclass:
     @pytest.mark.run(order=1)
     def test_loginwithvalidcredentails(self,browser_instance):
         # assigned to variable(driver) which hold instance of driver in browser_instance( created in conftest)
+        time.sleep(2)
         self.driver=browser_instance
         excelUtility = ExcelUtility()
         usernamevalue2=excelUtility.read_user_data(2,1)
@@ -31,20 +37,24 @@ class Testloginclass:
         nav=self.driver.current_url
         assert nav == "https://groceryapp.uniqassosiates.com/admin"
 
+
+    @pytest.mark.parametrize("username_value", [generate_random_username()])
+    #@pytest.mark.parametrize("username_column, password_column", [(3, 1), (1, 1)])
     @pytest.mark.run(order=4)
-    def test_logininvalidpassword(self,browser_instance):
+    def test_logininvalidpassword(self,browser_instance,username_value):
         self.driver=browser_instance
         excelUtility = ExcelUtility()
         #usernamevalue3=excelUtility.read_user_data(3,1)
         #passwordvalue3 = excelUtility.read_user_data(3, 2)
-        usernamevalue2=excelUtility.read_user_data(3,1)
+
+        #usernamevalue2=excelUtility.read_user_data(3,1)  for random
         passwordvalue2 = excelUtility.read_user_data(3, 2)
         self.driver.get("https://groceryapp.uniqassosiates.com/admin/login")
         #self.driver.find_element(By.XPATH,"//input[@name='username']").send_keys(usernamevalue3)
         #self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys(passwordvalue3)
         #self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         loginpage = Loginpage(self.driver)  #object create for class Loginpage
-        loginpage.enter_username(usernamevalue2)
+        loginpage.enter_username(username_value)
         loginpage.enter_password(passwordvalue2)
         loginpage.signin(self.driver)
         print("loginwithvalid credentails pwd")

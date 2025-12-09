@@ -1,17 +1,21 @@
 import time
 from time import sleep
 
+import pytest
 from selenium.webdriver.common.by import By
 
 from pages.Homepage import Homepage
 from pages.Loginpage import Loginpage
+from test.conftest import cross_browser
 from utility.ExcelUtility import ExcelUtility
 
 
 class Testhome:
-    def test_logout(self,browser_instance):
+    @pytest.mark.timeout(3)
+    def test_logout(self,cross_browser):
         # assigned to variable(driver) which hold instance of driver in browser_instance( created in conftest)
-        self.driver=browser_instance
+        self.driver=cross_browser  #cross browser - one after another tests executed,
+
         excelUtility = ExcelUtility()
         #usernamevalue2=excelUtility.read_user_data(2,1)
         #passwordvalue2 = excelUtility.read_user_data(2, 2)
