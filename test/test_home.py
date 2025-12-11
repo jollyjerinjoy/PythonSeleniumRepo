@@ -4,16 +4,16 @@ from time import sleep
 import pytest
 from selenium.webdriver.common.by import By
 
-from pages.Homepage import Homepage
+#from pages.Homepage import Homepage
 from pages.Loginpage import Loginpage
 from test.conftest import cross_browser
 from utility.ExcelUtility import ExcelUtility
 
 class Testhome:
     @pytest.mark.timeout(30)
-    def test_logout(self,cross_browser):
+    def test_logout(self,browser_instance):
         # assigned to variable(driver) which hold instance of driver in browser_instance( created in conftest)
-        self.driver=cross_browser  #cross browser - one after another tests executed, written fixture in conftest
+        self.driver=browser_instance  #cross browser - one after another tests executed, written fixture in conftest
 
         excelUtility = ExcelUtility()
         #usernamevalue2=excelUtility.read_user_data(2,1)
@@ -25,15 +25,19 @@ class Testhome:
         #self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys(passwordvalue2)
         #self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         loginpage = Loginpage(self.driver)  #object create for class Loginpage
-        loginpage.enter_username(usernamevalue2)
-        loginpage.enter_password(passwordvalue2)
-        loginpage.signin(self.driver)
+        loginpage.enter_username(usernamevalue2).enter_password(passwordvalue2)  # chain
+        #loginpage.enter_username(usernamevalue2)
+        #loginpage.enter_password(passwordvalue2)
+        homepagechain=loginpage.signin(self.driver)
         print("test_logout")
         time.sleep(2)
-        homepage = Homepage(self.driver)
-        time.sleep(2)
-        homepage.nav_item_dropdown(self.driver)
-        homepage.sign_out(self.driver)
+        #homepage = Homepage(self.driver)   #chain
+        #time.sleep(2) #chain commented
+        #homepage.nav_item_dropdown(self.driver)  #chain commented
+        homepagechain.nav_item_dropdown(self.driver)  #chain  added homepagechain
+        #homepage.sign_out(self.driver)  #chain commented
+        loginchainpage=homepagechain.sign_out(self.driver)  #chain  loginpage  since signed out to login page
+
 
         #self.driver.find_element(By.XPATH,"//li[@class='nav-item dropdown']").click()
         #self.driver.find_element(By.XPATH,"//a[@href='https://groceryapp.uniqassosiates.com/admin/logout']").click()

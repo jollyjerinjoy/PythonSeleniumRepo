@@ -11,10 +11,10 @@ from utility.ExcelUtility import ExcelUtility
 
 def generate_random_username():
     return "user_" + ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-
+#chaining global var if return expects
 class Testloginclass:
     @pytest.mark.run(order=1)  #order
-    @pytest.mark.smoke  #chaining   pytest -m smoke to execute this case
+    #@pytest.mark.smoke  #chaining   pytest -m smoke to execute this case
     #@pytest.mark.regression #chaining   pytest -m regression to execute this case
     #@pytest.mark.sanity #chaining   pytest -m sanity to execute this case
     def test_loginwithvalidcredentails(self,browser_instance):
@@ -33,9 +33,9 @@ class Testloginclass:
         #self.driver.find_element(By.XPATH,"//input[@name='username']").send_keys(usernamevalue2)
         #self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys(passwordvalue2)
         loginpage = Loginpage(self.driver)  #object create for class Loginpage
-        loginpage.enter_username(usernamevalue2)
-        loginpage.enter_password(passwordvalue2)
-        loginpage.signin(self.driver)
+        loginpage.enter_username(usernamevalue2).enter_password(passwordvalue2)
+        #loginpage.enter_password(passwordvalue2)  class chaining - chaining of functions
+        homepagechain=loginpage.signin(self.driver)  #chaining added
 
         # assert
         nav=self.driver.current_url
@@ -58,9 +58,9 @@ class Testloginclass:
         #self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys(passwordvalue3)
         #self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         loginpage = Loginpage(self.driver)  #object create for class Loginpage
-        loginpage.enter_username(username_value)
-        loginpage.enter_password(passwordvalue2)
-        loginpage.signin(self.driver)
+        loginpage.enter_username(username_value).enter_password(passwordvalue2).signin(self.driver) #chain
+        #loginpage.enter_password(passwordvalue2)
+        #loginpage.signin(self.driver)
         print("loginwithvalid credentails pwd")
         # assert
         nav=self.driver.current_url
@@ -80,9 +80,9 @@ class Testloginclass:
         #self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys(passwordvalue4)
         #self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         loginpage = Loginpage(self.driver)  #object create for class Loginpage
-        loginpage.enter_username(usernamevalue2)
-        loginpage.enter_password(passwordvalue2)
-        loginpage.signin(self.driver)
+        loginpage.enter_username(usernamevalue2).enter_password(passwordvalue2).signin(self.driver) #chain
+       # loginpage.enter_password(passwordvalue2)
+       # loginpage.signin(self.driver)
         print("loginwithvalidcredentails username")
         # assert
         nav=self.driver.current_url
@@ -101,9 +101,9 @@ class Testloginclass:
         #self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys(passwordvalue5)
         #self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
         loginpage = Loginpage(self.driver)  #object create for class Loginpage
-        loginpage.enter_username(usernamevalue2)
-        loginpage.enter_password(passwordvalue2)
-        loginpage.signin(self.driver)
+        loginpage.enter_username(usernamevalue2).enter_password(passwordvalue2).signin(self.driver) #chain
+        #loginpage.enter_password(passwordvalue2)
+        #loginpage.signin(self.driver)
         print("loginwithvalid credentails username pwd")
         # assert
         nav=self.driver.current_url
