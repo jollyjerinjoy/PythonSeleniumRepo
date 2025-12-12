@@ -5,8 +5,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 from pages.Adminpage import Adminpage
-from pages.Homepage import Homepage
 from pages.Loginpage import Loginpage
+#from pages.Adminpage import Adminpage
+
 from utility.ExcelUtility import ExcelUtility
 
 
@@ -20,14 +21,18 @@ class TestAdmin:
         #self.driver.find_element(By.XPATH, "//input[@name='username']").send_keys(usernamevalue2)
         #self.driver.find_element(By.XPATH, "//input[@name='password']").send_keys(passwordvalue2)
         #self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
+
         loginpage = Loginpage(self.driver)  #object create for class Loginpage
         loginpage.enter_username(usernamevalue2).enter_password(passwordvalue2)
         #loginpage.enter_password(passwordvalue2)
-        homepagechain=loginpage.signin(self.driver)
-
+        homepagechain=loginpage.signin(self.driver)     #return homepage
         print("test_return_to_home")
-        adminpage = Adminpage(self.driver)
-        adminpagechain=adminpage.list_admin(self.driver)
+        from pages.Homepage import Homepage
+        adminpagechain=homepagechain.list_admin(self.driver)    #moved list_admin to test_home.py
+        print("moves to admin page")
+        #adminpage = Adminpage(self.driver)
+        #adminpagechain=adminpage.list_admin(self.driver)
+
         adminpagechain.home(self.driver)
 
         #self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']").click()
@@ -55,23 +60,26 @@ class TestAdmin:
         homepagechain=loginpage.signin(self.driver)
         time.sleep(2)
         print("test_create_user")
-        adminpage = Adminpage(self.driver)
-        time.sleep(2)
-        adminpagechain=adminpage.list_admin(self.driver)
-        adminpagechain.newbutton(self.driver)
+        adminpagechain=homepagechain.list_admin(self.driver).newbutton(self.driver).inputusername(self.driver).inputpassword(self.driver)
+
+        #adminpagechain = Adminpage(self.driver)
+        #time.sleep(2)
+
+        #adminpagechain=adminpage.list_admin(self.driver)
+        #adminpagechain.newbutton(self.driver)
         #self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']").click()
         #self.driver.find_element(By.XPATH,"//a[@class='btn btn-rounded btn-danger']").click()
 
-        adminpagechain.inputusername(self.driver)
-        adminpagechain.inputpassword(self.driver)
+        #adminpagechain.inputusername(self.driver)
+        #adminpagechain.inputpassword(self.driver)
         #self.driver.find_element(By.XPATH,"//input[@id = 'username']").send_keys("Jollyjkj")
         #self.driver.find_element(By.XPATH,"//input[@id = 'password']").send_keys("Jollyjkj")
         #dropdownlist=self.driver.find_element(By.XPATH,"//select[@id='user_type']")
         #select = Select(dropdownlist)
         #select.select_by_visible_text("Staff")
-        adminpagechain.dropdown(self.driver)
+        adminpagechain.dropdown(self.driver).createAdmin(self.driver)
         #self.driver.find_element(By.XPATH,"//button[@name='Create']").click()
-        adminpagechain.createAdmin(self.driver)
+        #adminpagechain.createAdmin(self.driver)
         # assert
         time.sleep(2)
         alert_message=self.driver.find_elements(By.XPATH, "//div[@class='alert alert-success alert-dismissible']")
@@ -103,11 +111,12 @@ class TestAdmin:
         print("test_reset")
         #self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']").click()
         #self.driver.find_element(By.XPATH,"//a[@class='btn btn-rounded btn-danger']").click()
-        adminpage = Adminpage(self.driver)
-        time.sleep(4)
-        adminpagechain=adminpage.list_admin(self.driver)
-        adminpagechain.newbutton(self.driver)
-        adminpagechain.resetAdmin(self.driver)
+        adminpagechain = homepagechain.list_admin(self.driver).newbutton(self.driver).resetAdmin(self.driver)
+        #adminpage = Adminpage(self.driver)
+       # time.sleep(4)
+        #adminpagechain=adminpage.list_admin(self.driver)
+        #adminpagechain.newbutton(self.driver)
+        #adminpagechain.resetAdmin(self.driver)
         #self.driver.find_element(By.XPATH,"//a[text() = ' Reset']").click()
 
         print("test_reset done")
@@ -116,8 +125,8 @@ class TestAdmin:
         assert nav == "https://groceryapp.uniqassosiates.com/admin/list-admin"
 
 
-    def test_search(self, browser_instance):
-        self.driver = browser_instance
+    def test_search(self, cross_browser):
+        self.driver = cross_browser
         excelUtility = ExcelUtility()
         usernamevalue2 = excelUtility.read_user_data(2, 1)
         passwordvalue2 = excelUtility.read_user_data(2, 2)
@@ -129,16 +138,16 @@ class TestAdmin:
         loginpage.enter_username(usernamevalue2).enter_password(passwordvalue2)
         #loginpage.enter_password(passwordvalue2)
         homepagechain=loginpage.signin(self.driver)
-        print("test_reset")
-        adminpage = Adminpage(self.driver)
+        print("test_reset homepage")
+        #adminpage = Adminpage(self.driver)
 
-        adminpagechain=adminpage.list_admin(self.driver).newbutton(self.driver).resetAdmin(self.driver).searchAdmin(self.driver).inputtext(self.driver).utdropdownlist(self.driver).search(self.driver)
+        adminpagechain=homepagechain.list_admin(self.driver).newbutton(self.driver).resetAdmin(self.driver).searchAdmin(self.driver).inputtext(self.driver).utdropdownlist(self.driver).search(self.driver)
         #adminpage.newbutton(self.driver)
         #adminpage.resetAdmin(self.driver)
         #self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']").click()
         #self.driver.find_element(By.XPATH,"//a[@class='btn btn-rounded btn-danger']").click()
         #self.driver.find_element(By.XPATH,"//a[text() = ' Reset']").click()
-        print("test_reset done")
+        print("test_reset admin page")
         #self.driver.find_element(By.XPATH, "//a[text() = ' Search']").click()
         #self.driver.find_element(By.XPATH, "//input[@type = 'text']").send_keys("Jolly")
         #search_dropdown_list=self.driver.find_element(By.XPATH,"//select[@id='ut']")
@@ -150,7 +159,7 @@ class TestAdmin:
         #adminpage.utdropdownlist(self.driver)
         #adminpage.search(self.driver)
 
-        print("test_search_done")
+        print("test_search_assert start")
         #assert
         news_table = self.driver.find_element(By.XPATH, "//table[@class ='table table-bordered table-hover table-sm']")
         assert "Jolly" in news_table.text

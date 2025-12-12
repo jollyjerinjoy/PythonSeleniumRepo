@@ -9,11 +9,7 @@ class NewsPage:
         self.driver = driver
         self.waitutility = WaitUtility()
         self.pageutility = Page_Utility()
-    def newslist(self,driver):
-        pageutility_newslist=self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news']")
-        self.pageutility.click_on_element(pageutility_newslist)
-        #pageutility_newslist.click()
-        return NewsPage(self.driver)
+
     def newsnewbutton(self,driver):
         pageutility_newsnewbutton=self.driver.find_element(By.XPATH, "//a[@class='btn btn-rounded btn-danger']")
         self.pageutility.click_on_element(pageutility_newsnewbutton)

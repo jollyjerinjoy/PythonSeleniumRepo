@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 
 
+from pages.Loginpage import Loginpage
+
 from utility.WaitUtility import WaitUtility
 from utility.page_utility import Page_Utility
 
@@ -25,10 +27,23 @@ class Homepage:
         self.pageutility.click_on_element(pageutility_nav_item_dropdown)
         return self #chain
     def sign_out(self,driver):
-        from pages.Loginpage import Loginpage
+
         pageutility_sign_outclick=self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/logout']")
         self.waitutility.wait_until_clickable(self.driver, pageutility_sign_outclick)
         pageutility_sign_outclick.click()
         #//a/i[@class='ace-icon fa fa-power-off']
 
         return Loginpage(self.driver)
+
+    def list_admin(self, driver):
+        from pages.Adminpage import Adminpage
+        pageutility_list_admin = self.driver.find_element(By.XPATH,
+                                                          "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']")  # .click()
+        self.pageutility.click_on_element(pageutility_list_admin)
+        return Adminpage(self.driver)
+    def newslist(self,driver):
+        from pages.Newspage import NewsPage
+        pageutility_newslist=self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news']")
+        self.pageutility.click_on_element(pageutility_newslist)
+        #pageutility_newslist.click()
+        return NewsPage(self.driver)

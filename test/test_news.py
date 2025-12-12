@@ -20,14 +20,16 @@ class Testnews:
         loginpage.enter_username(usernamevalue2).enter_password(passwordvalue2)
         #loginpage.enter_password(passwordvalue2)
         homepagechain=loginpage.signin(self.driver)
-
-        newspage = NewsPage(self.driver)  # object create for class
-        newspagechain=newspage.newslist(self.driver)
+        print("test_return_to_home")
+        #newspage = NewsPage(self.driver)  # object create for class
+        #newspagechain=newspage.newslist(self.driver)
+        newspagechain=homepagechain.newslist(self.driver)
+        print("moves to news page")
         newspagechain.newsnewbutton(self.driver).newsaddtestarea(self.driver).newscreate(self.driver)
         #newspage.newsnewbutton(self.driver)
-        time.sleep(2)
+        #time.sleep(2)
         #newspage.newsaddtestarea(self.driver)
-        time.sleep(2)
+        #time.sleep(2)
         #newspage.newscreate(self.driver)
 
 
@@ -61,8 +63,8 @@ class Testnews:
 
         #self.driver.find_element(By.XPATH,"//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news']").click()
         #self.driver.find_element(By.XPATH, "//a[@class='btn btn-rounded btn-primary']").click()
-        newspage = NewsPage(self.driver)  # object create for class
-        newspagechain =newspage.newslist(self.driver).newssearch1(self.driver).newsSearchManage(self.driver).newssearch(self.driver)
+       # newspage = NewsPage(self.driver)  # object create for class
+        newspagechain=homepagechain.newslist(self.driver).newssearch1(self.driver).newsSearchManage(self.driver).newssearch(self.driver)
         #newspage.newslist(self.driver)
         ##newspage.newsnewbutton(self.driver)
         time.sleep(2)

@@ -18,10 +18,8 @@ class Adminpage:
             self.driver = driver
             self.waitutility = WaitUtility()
             self.pageutility = Page_Utility()
-        def list_admin(self,driver):
-            pageutility_list_admin=self.driver.find_element(By.XPATH, "//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']")   #.click()
-            self.pageutility.click_on_element(pageutility_list_admin)
-            return Adminpage(self.driver)
+
+
         def home(self,driver):
             pageutility_home=self.driver.find_element(By.XPATH,"//a[text()='Home']")   #.click()
             self.pageutility.click_on_element(pageutility_home)
