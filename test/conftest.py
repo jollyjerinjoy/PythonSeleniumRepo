@@ -22,8 +22,8 @@ from utility import ScreenshotUtility
 def browser_instance():
     options = FirefoxOptions()
     options.add_argument("--headless")
-    #driver = webdriver.Firefox(options=options)
-    driver = webdriver.Firefox()
+    driver = webdriver.Firefox(options=options)
+    #driver = webdriver.Firefox()
     yield driver
     driver.quit()
 
@@ -75,21 +75,21 @@ def cross_browser(request):
         options = ChromeOptions()
         options.add_argument("--headless")
         options.add_argument("--window-size=1920,1080")
-        #driver = webdriver.Chrome(options=options)
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(options=options)
+        #driver = webdriver.Chrome()
 
     elif request.param == "firefox":
         options = FirefoxOptions()
         options.add_argument("--headless")
-        #driver = webdriver.Firefox(options=options)
-        driver = webdriver.Firefox()
+        driver = webdriver.Firefox(options=options)
+        #driver = webdriver.Firefox()
     elif request.param == "edge":
         options = EdgeOptions()
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1920,1080")
-        #driver = webdriver.Edge(options=options)
-        driver = webdriver.Edge()
+        driver = webdriver.Edge(options=options)
+        #driver = webdriver.Edge()
     yield driver
     driver.quit()
 
