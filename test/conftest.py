@@ -3,17 +3,29 @@ from _pydatetime import datetime
 
 import pytest
 from selenium import webdriver
-
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from utility import ScreenshotUtility
 
 
-@pytest.fixture  #  Fixtures allow reusable setup logic.
+#@pytest.fixture  #  Fixtures allow reusable setup logic.
+#def browser_instance():
+#    #driver = webdriver.Chrome()
+#    driver=webdriver.Firefox()
+#    #driver = webdriver.FireFox()  #local
+#    yield driver  # freeup driver value
+ #   driver.quit()
+
+
+@pytest.fixture
 def browser_instance():
-    #driver = webdriver.Chrome()
-    driver=webdriver.Firefox()
-    #driver = webdriver.FireFox()  #local
-    yield driver  # freeup driver value
-    #driver.quit()
+    options = FirefoxOptions()
+    options.add_argument("--headless")
+    #driver = webdriver.Firefox(options=options)
+    driver = webdriver.Firefox()
+    yield driver
+    driver.quit()
 
 #https://groceryapp.uniqassosiates.com/admin/login
 def pytest_configure(config):
@@ -54,14 +66,44 @@ def pytest_runtest_makereport(item):
                 extra.append(pytest_html.extras.html(html))
         #Writes extras (screenshots) into the final report output.
         report.extras = extra
+
+
 @pytest.fixture(params=["chrome", "firefox", "edge"])
 def cross_browser(request):
+
     if request.param == "chrome":
+        options = ChromeOptions()
+        options.add_argument("--headless")
+        options.add_argument("--window-size=1920,1080")
+        #driver = webdriver.Chrome(options=options)
         driver = webdriver.Chrome()
+
     elif request.param == "firefox":
+        options = FirefoxOptions()
+        options.add_argument("--headless")
+        #driver = webdriver.Firefox(options=options)
         driver = webdriver.Firefox()
     elif request.param == "edge":
+        options = EdgeOptions()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--window-size=1920,1080")
+        #driver = webdriver.Edge(options=options)
         driver = webdriver.Edge()
-
-    driver.maximize_window()
     yield driver
+    driver.quit()
+
+
+
+#@pytest.fixture(params=["chrome", "firefox", "edge"])
+#def cross_browser(request):
+#    if request.param == "chrome":
+#        driver = webdriver.Chrome()
+#    elif request.param == "firefox":
+#        driver = webdriver.Firefox()
+#    elif request.param == "edge":
+#        driver = webdriver.Edge()
+
+#    driver.maximize_window()
+#    yield driver
+#    driver.quit()
