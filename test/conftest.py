@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from utility import ScreenshotUtility
-
+import os
 
 #@pytest.fixture  #  Fixtures allow reusable setup logic.
 #def browser_instance():
@@ -21,7 +21,8 @@ from utility import ScreenshotUtility
 @pytest.fixture
 def browser_instance():
     options = FirefoxOptions()
-    options.add_argument("--headless")
+    if is_ci():
+        options.add_argument("--headless")
     driver = webdriver.Firefox(options=options)
     #driver = webdriver.Firefox()
     yield driver
@@ -68,30 +69,40 @@ def pytest_runtest_makereport(item):
         report.extras = extra
 
 
+
+def is_ci():
+    return os.getenv("CI") == "true"
+
+
 @pytest.fixture(params=["chrome", "firefox"])
 def cross_browser(request):
 
     if request.param == "chrome":
         options = ChromeOptions()
-        options.add_argument("--headless")
-        options.add_argument("--window-size=1920,1080")
+        if is_ci():
+            options.add_argument("--headless")
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--disable-gpu")
         driver = webdriver.Chrome(options=options)
         #driver = webdriver.Chrome()
 
     elif request.param == "firefox":
         options = FirefoxOptions()
-        options.add_argument("--headless")
+        if is_ci():
+            options.add_argument("--headless")
         driver = webdriver.Firefox(options=options)
         #driver = webdriver.Firefox()
     elif request.param == "edge":
         options = EdgeOptions()
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--window-size=1920,1080")
+        if is_ci():
+            options.add_argument("--headless")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--window-size=1920,1080")
         driver = webdriver.Edge(options=options)
         #driver = webdriver.Edge()
     yield driver
     driver.quit()
+
 
 
 
