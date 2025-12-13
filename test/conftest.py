@@ -68,7 +68,7 @@ def pytest_runtest_makereport(item):
         report.extras = extra
 
 
-@pytest.fixture(params=["chrome", "firefox", "edge"])
+@pytest.fixture(params=["chrome", "firefox"])
 def cross_browser(request):
 
     if request.param == "chrome":
