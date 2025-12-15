@@ -89,6 +89,8 @@ def cross_browser(request):
         options = FirefoxOptions()
         if is_ci():
             options.add_argument("--headless")
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--disable-gpu")
         driver = webdriver.Firefox(options=options)
         #driver = webdriver.Firefox()
     elif request.param == "edge":
