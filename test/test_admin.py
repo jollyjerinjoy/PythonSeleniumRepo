@@ -161,7 +161,20 @@ class TestAdmin:
 
         print("test_search_assert start")
         #assert
-        news_table = self.driver.find_element(By.XPATH, "//table[@class ='table table-bordered table-hover table-sm']")
+        #news_table = self.driver.find_element(By.XPATH, "//table[@class ='table table-bordered table-hover table-sm']")
+        #assert "Jolly" in news_table.text
+
+        from selenium.webdriver.support.ui import WebDriverWait
+        from selenium.webdriver.support import expected_conditions as EC
+
+        wait = WebDriverWait(self.driver, 10)
+
+        news_table = wait.until(
+            EC.presence_of_element_located(
+                (By.XPATH, "//table[@class='table table-bordered table-hover table-sm']")
+            )
+        )
+
         assert "Jolly" in news_table.text
 
 
