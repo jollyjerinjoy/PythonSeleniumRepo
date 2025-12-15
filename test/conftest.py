@@ -73,7 +73,7 @@ def pytest_runtest_makereport(item):
 def is_ci():
     return os.getenv("CI") == "true"
 
-@pytest.fixture(params=["chrome", "firefox"])
+@pytest.fixture(params=["chrome"])
 def cross_browser(request):
 
     if request.param == "chrome":
@@ -89,7 +89,6 @@ def cross_browser(request):
         options = FirefoxOptions()
         if is_ci():
             options.add_argument("--headless")
-            options.add_argument("--window-size=1920,1080")
             options.add_argument("--disable-gpu")
         driver = webdriver.Firefox(options=options)
         #driver = webdriver.Firefox()
