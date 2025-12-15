@@ -73,7 +73,7 @@ def pytest_runtest_makereport(item):
 def is_ci():
     return os.getenv("CI") == "true"
 
-@pytest.fixture(params=["chrome"])
+@pytest.fixture(params=["chrome", "firefox"])
 def cross_browser(request):
 
     if request.param == "chrome":
