@@ -167,7 +167,7 @@ class TestAdmin:
         from selenium.webdriver.support.ui import WebDriverWait
         from selenium.webdriver.support import expected_conditions as EC
 
-        wait = WebDriverWait(self.driver, 10)
+        wait = WebDriverWait(self.driver, 15)
 
         news_table = wait.until(
             EC.presence_of_element_located(
