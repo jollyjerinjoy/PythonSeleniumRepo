@@ -61,7 +61,7 @@ class Testloginclass:
         loginpage.enter_username(username_value).enter_password(passwordvalue2).signin(self.driver) #chain
         #loginpage.enter_password(passwordvalue2)
         #loginpage.signin(self.driver)
-        print("loginwithvalid credentails pwd")
+        print("loginwithvalid credentails pwds")
         # assert
         nav=self.driver.current_url
         assert nav == "https://groceryapp.uniqassosiates.com/admin/login"
